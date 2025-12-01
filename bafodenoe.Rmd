@@ -35,9 +35,18 @@ recode_age <-function(x){
 ```
 
 
-```{r cars}
-summary(cars)
+```{r fonction recode_confiance}
+recode_confiance<-function(x){
+  if(sum(!(x[!is.na(x)]%in%1:4))==0){
+    ordered(x,
+            levels=c(1,2,3,4),
+            labels=c("Tout à fait confiance","Plutôt confiance","Plutôt pas confiance","Pas du tout confiance"))
+  }
+}
+
 ```
+ 
+
 
 ## Including Plots
 
