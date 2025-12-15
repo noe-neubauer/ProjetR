@@ -127,11 +127,11 @@ Cette question se pose dans un contexte où les **réseaux sociaux** occupent un
 Nous chercherons à répondre à cette problématique en abordant les points suivants :
 
 1. **Décrire l’usage des réseaux sociaux pour s’informer** selon les générations.
-2. **Comparer le niveau de confiance dans les journalistes** entre les personnes qui s’informent via les réseaux sociaux et celles qui les utilisent peu ou pas.
+2. **Comparer le niveau de confiance envers les journalistes** entre les personnes qui s’informent via les réseaux sociaux et celles qui les utilisent peu ou pas.
 3. **Tester statistiquement** l’existence d’une relation entre l’usage des réseaux sociaux et le niveau de confiance dans les médias traditionnels, en tenant compte de la génération.
 
 
-## Recodage des variables
+<!--## Recodage des variables
 
 Dans cette section, nous avons recodé les variables nécessaires à l’analyse :
 
@@ -139,7 +139,7 @@ Dans cette section, nous avons recodé les variables nécessaires à l’analyse
 - **confiance_cat** : regroupe le niveau de confiance dans les journalistes en trois classes (forte, moyenne, faible).
 - **generation** : classe les répartissant dans quatre grandes générations à partir de leur âge.
 
-Ce recodage permet de simplifier et de structurer les données pour répondre plus facilement à la problématique.
+Ce recodage permet de simplifier et de structurer les données pour répondre plus facilement à la problématique.-->
 
 
 
@@ -219,8 +219,11 @@ ggplot(data, aes(x = confiance_cat, fill = confiance_cat)) +
 Ce graphique permet de visualiser rapidement la distribution des niveaux de confiance.
 Il facilite l’identification d’une éventuelle tendance générale vers une confiance plutôt forte,
 moyenne ou faible.
-<br><br><br>
+<br><br>
 
+## Comparaisons descriptives
+
+<br>
 ```{r}
 tab_RS_gen <- data |>
   count(generation, RS_usage) |>
@@ -258,7 +261,7 @@ tab_RS_conf <- data |>
 knitr::kable(tab_RS_conf,
              col.names = c("Usage RS", "Confiance journalistes", "Effectif", "Pourcentage")) |> 
   kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) |> 
-   kableExtra::row_spec(1:3, background = "#FAF9F6") |>   # Lignes 1 à 3 (Usage faible ou absent) : fond blanc
+   kableExtra::row_spec(1:3, background = "#FAF9F6") |>   
   kableExtra::row_spec(4:6, background = "#F0F0F0") |>
   kableExtra::column_spec(4,
                           background = scales::col_numeric(
@@ -323,7 +326,7 @@ présentent une proportion plus élevée de confiance faible, tandis que ceux qu
 ou jamais affichent davantage de confiance moyenne ou forte. Cette tendance suggère un lien
 entre usage intensif des réseaux sociaux et moindre confiance dans les médias traditionnels.<br>
 
-
+## Test du khi-deux
 
 ```{r fonction khi-deux}
 test_khi2 <- function(data, var1, var2) {
@@ -371,13 +374,13 @@ Si la **p-value < 0,05**, on rejette H0 :
 => il existe un lien significatif entre usage des réseaux sociaux et confiance.
 
 Si la **p-value ≥ 0,05**, on ne peut pas rejeter H0 :  
-=>aucune preuve de lien statistique.
+=> aucune preuve de lien statistique.
 
 Dans notre cas :
 
-- Si la proportion de **faible confiance** est plus élevée chez les utilisateurs réguliers,  
-- Et si la p-value est < 0,05,  
-=>cela confirme statistiquement que l’usage des réseaux sociaux est associé à une
+- La proportion de **faible confiance** est plus élevée chez les utilisateurs réguliers,  
+- Et la p-value est < 0,05,  
+=> cela confirme statistiquement que l’usage des réseaux sociaux est associé à une
 diminution de la confiance dans les journalistes.
 
 
@@ -393,5 +396,5 @@ traditionnels parmi ces utilisateurs.
 Au vu des résultats de cette analyse, on peut maintenant répondre à la question de départ : est-ce que s'informer principalement via les réseaux sociaux fait baisser la confiance envers les médias traditionnels, et est-ce que ça dépend de l'âge ?<br>
 Les données montrent quelque chose d'assez clair : ceux qui s'informent souvent sur les réseaux sociaux font globalement moins confiance aux journalistes et aux médias classiques que ceux qui ne les utilisent pas ou peu. C'est encore plus frappant chez les jeunes, surtout la Génération Z et les Millennials, qui ont vraiment adopté les réseaux comme source principale d'information. À l'inverse, les Baby-boomers et la Génération X restent plus attachés aux médias traditionnels et leur font davantage confiance.<br><br>
 Le test du Khi-deux (avec p < 0,05) vient confirmer qu'il y a bien un lien statistique entre l'usage des réseaux sociaux et cette perte de confiance. <br>Il y a une vraie corrélation entre la façon dont les gens s'informent et la confiance qu'ils accordent aux journalistes. Les utilisateurs réguliers des réseaux ont tendance à être plus méfiants, peut-être à cause de la surcharge d'informations à laquelle ils font face.<br><br>
-Ce qu'on peut retenir, c'est que les réseaux sociaux ont bel et bien un impact sur la confiance envers les médias traditionnels, et que cet impact varie d'une génération à l'autre. Les jeunes sont clairement plus sceptiques face aux médias classiques. Ça pose une vraie question : comment les médias traditionnels peuvent-ils reconquérir ce public jeune ? Probablement en diversifiant leurs formats, en jouant la carte de la transparence et en misant sur un journalisme rigoureux et vérifiable.
+Ce qu'on peut retenir, c'est que les réseaux sociaux ont bel et bien un impact sur la confiance envers les médias traditionnels, et que cet impact varie d'une génération à l'autre. Les jeunes sont clairement plus sceptiques face aux médias classiques. Cela pose une vraie question : comment les médias traditionnels peuvent-ils reconquérir ce public jeune ? Probablement en diversifiant leurs formats, en jouant la carte de la transparence et en misant sur un journalisme rigoureux et vérifiable.
 Au final, ces résultats montrent que les analyses sur l'accès à l'information et la confiance envers les médias doivent être faites en fonction des générations. Ce point est essentiel quant à la pertinence de l'analyse car l'impact qu'ont eu internet et les réseaux sociaux diffère selon les générations.
